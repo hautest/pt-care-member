@@ -1,31 +1,19 @@
-import { IconSymbol } from "@/src/shared/ui/IconSymbol";
-import { Stack } from "expo-router";
-import { StyleSheet, View, Text } from "react-native";
+import { createStyle, useThemeStyle } from "pt-care-libs";
+import { View, Text } from "react-native";
 
 export default function TabTwoScreen() {
+  const styles = useThemeStyle(themedStyles);
+
   return (
-    <>
-      {/* <Stack.Screen
-        options={{
-          headerShown: false,
-        }}
-      /> */}
-      <View>
-        <Text>Explore</Text>
-      </View>
-    </>
+    <View style={styles.block}>
+      <Text>Explore</Text>
+    </View>
   );
 }
 
-const styles = StyleSheet.create({
-  headerImage: {
-    color: "#808080",
-    bottom: -90,
-    left: -35,
-    position: "absolute",
+const themedStyles = createStyle(({ themeColor }) => ({
+  block: {
+    backgroundColor: themeColor.background.primary,
+    flex: 1,
   },
-  titleContainer: {
-    flexDirection: "row",
-    gap: 8,
-  },
-});
+}));

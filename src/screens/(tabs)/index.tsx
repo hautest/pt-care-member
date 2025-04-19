@@ -1,44 +1,35 @@
-import {
-  Image,
-  StyleSheet,
-  Platform,
-  View,
-  Text,
-  useColorScheme,
-} from "react-native";
+import { View, Text, Button, Appearance } from "react-native";
+import { createStyle, useThemeStyle } from "pt-care-libs";
 
 export default function HomeScreen() {
+  const styles = useThemeStyle(themedStyles);
+  console.log(styles.test);
+
   return (
     <>
-      <View
-        style={{
-          flex: 1,
-          justifyContent: "center",
-          alignItems: "center",
-          backgroundColor: "white",
-        }}
-      >
-        <Text>Home</Text>
+      <View style={styles.test}>
+        <Text style={styles.text}>Home</Text>
+        <Button
+          title="light"
+          onPress={() => Appearance.setColorScheme("light")}
+        />
+        <Button
+          title="dark"
+          onPress={() => Appearance.setColorScheme("dark")}
+        />
       </View>
     </>
   );
 }
 
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 8,
+const themedStyles = createStyle(({ themeColor, typo }) => ({
+  test: {
+    backgroundColor: themeColor.background.primary,
+    flex: 1,
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+  text: {
+    color: themeColor.text.secondary,
+    fontSize: typo.sizes.h1,
+    fontWeight: typo.weights.bold,
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: "absolute",
-  },
-});
+}));

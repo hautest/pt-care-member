@@ -20,7 +20,12 @@
       "package": "com.anonymous.ptcaremember"
     },
     "plugins": [
-      "expo-router",
+      [
+        "expo-router",
+        {
+          "root": "./src/screens"
+        }
+      ],
       [
         "expo-splash-screen",
         {

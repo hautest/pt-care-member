@@ -1,6 +1,7 @@
 import { View, Text, Button, Appearance } from "react-native";
 import { createStyle, useThemeStyle } from "pt-care-libs";
-import { supabase } from "@/src/features/supabase/supabase";
+import { supabase } from "@features/supabase/supabase";
+import { login } from "@react-native-seoul/kakao-login";
 
 export default function HomeScreen() {
   const styles = useThemeStyle(themedStyles);
@@ -16,6 +17,34 @@ export default function HomeScreen() {
         <Button
           title="dark"
           onPress={() => Appearance.setColorScheme("dark")}
+        />
+        <Button
+          title="로그인"
+          onPress={async () => {
+            try {
+              const { idToken } = await login();
+              const { data, error } = await supabase.auth.signInWithIdToken({
+                provider: "kakao",
+                token: idToken,
+              });
+            } catch (error) {
+              console.log(error);
+            }
+          }}
+        />
+        <Button
+          title="nickn ame 변경"
+          onPress={async () => {
+            try {
+              const { data, error } = await supabase.auth.updateUser({
+                data: {
+                  nickname: "leee",
+                },
+              });
+            } catch (error) {
+              console.log(error);
+            }
+          }}
         />
       </View>
     </>

@@ -1,10 +1,14 @@
 import { MaterialIcons } from "@expo/vector-icons";
+import { useGetUserSuspenseQuery } from "@features/user/useGetUserSuspenseQuery";
 import { Tabs } from "expo-router";
 import { createStyle, useThemeStyle } from "pt-care-libs";
 import React from "react";
 
 export default function TabLayout() {
   const styles = useThemeStyle(themedStyles);
+  const { data } = useGetUserSuspenseQuery();
+
+  const isLoginIn = !!data.user;
 
   return (
     <Tabs>
@@ -37,7 +41,6 @@ export default function TabLayout() {
       <Tabs.Screen
         name="login"
         options={{
-          title: "로그인",
           tabBarActiveTintColor: styles.tabBarActiveTintColor.color,
           tabBarInactiveTintColor: styles.tabBarInactiveTintColor.color,
           tabBarStyle: styles.tabBarStyle,
@@ -45,6 +48,8 @@ export default function TabLayout() {
             <MaterialIcons size={28} name="login" color={color} />
           ),
           headerStyle: styles.headerStyle,
+          tabBarButton: isLoginIn ? () => null : undefined,
+          headerShown: false,
         }}
       />
     </Tabs>

@@ -1,10 +1,31 @@
 import { View, Text, Button, Appearance } from "react-native";
 import { createStyle, useThemeStyle } from "pt-care-libs";
-import { supabase } from "@features/supabase/supabase";
 import { login } from "@react-native-seoul/kakao-login";
+import { useGetUserSuspenseQuery } from "@features/user/useGetUserSuspenseQuery";
+import { supabase } from "@shared/supabase/supabase";
+import { useLoginMutation } from "@features/user/useLoginMutation";
+import { queryClient } from "@shared/queryClient/queryClient";
+import { useLogoutMutation } from "@features/user/useLogoutMutation";
 
 export default function HomeScreen() {
   const styles = useThemeStyle(themedStyles);
+
+  const { data } = useGetUserSuspenseQuery();
+  const { mutate } = useLoginMutation({
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: useGetUserSuspenseQuery.queryKey,
+      });
+    },
+  });
+
+  const { mutate: logout } = useLogoutMutation({
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: useGetUserSuspenseQuery.queryKey,
+      });
+    },
+  });
 
   return (
     <>
@@ -20,16 +41,8 @@ export default function HomeScreen() {
         />
         <Button
           title="로그인"
-          onPress={async () => {
-            try {
-              const { idToken } = await login();
-              const { data, error } = await supabase.auth.signInWithIdToken({
-                provider: "kakao",
-                token: idToken,
-              });
-            } catch (error) {
-              console.log(error);
-            }
+          onPress={() => {
+            mutate();
           }}
         />
         <Button
@@ -46,6 +59,7 @@ export default function HomeScreen() {
             }
           }}
         />
+        <Button title="로그아웃" onPress={() => logout()} />
       </View>
     </>
   );

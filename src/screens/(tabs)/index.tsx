@@ -1,9 +1,9 @@
 import { View, Text, Button, Appearance } from "react-native";
 import { createStyle, useThemeStyle } from "pt-care-libs";
+import { supabase } from "@/src/features/supabase/supabase";
 
 export default function HomeScreen() {
   const styles = useThemeStyle(themedStyles);
-  console.log(styles.test);
 
   return (
     <>

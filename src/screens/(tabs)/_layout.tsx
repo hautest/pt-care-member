@@ -34,6 +34,19 @@ export default function TabLayout() {
           headerStyle: styles.headerStyle,
         }}
       />
+      <Tabs.Screen
+        name="login"
+        options={{
+          title: "로그인",
+          tabBarActiveTintColor: styles.tabBarActiveTintColor.color,
+          tabBarInactiveTintColor: styles.tabBarInactiveTintColor.color,
+          tabBarStyle: styles.tabBarStyle,
+          tabBarIcon: ({ color }) => (
+            <MaterialIcons size={28} name="login" color={color} />
+          ),
+          headerStyle: styles.headerStyle,
+        }}
+      />
     </Tabs>
   );
 }

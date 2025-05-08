@@ -1,6 +1,5 @@
 import { View, Text, Button, Appearance } from "react-native";
 import { createStyle, useThemeStyle } from "pt-care-libs";
-import { login } from "@react-native-seoul/kakao-login";
 import { useGetUserSuspenseQuery } from "@features/user/useGetUserSuspenseQuery";
 import { supabase } from "@shared/supabase/supabase";
 import { useLoginMutation } from "@features/user/useLoginMutation";

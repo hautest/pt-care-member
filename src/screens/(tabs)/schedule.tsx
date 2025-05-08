@@ -6,7 +6,7 @@ export default function TabTwoScreen() {
 
   return (
     <View style={styles.block}>
-      <Text>Explore</Text>
+      <Text>schedule</Text>
     </View>
   );
 }

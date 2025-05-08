@@ -10,7 +10,6 @@ import { useEffect } from "react";
 import { TouchableOpacity, useColorScheme } from "react-native";
 import "react-native-reanimated";
 import {
-  EdgeInsets,
   initialWindowMetrics,
   SafeAreaProvider,
   useSafeAreaInsets,
@@ -68,6 +67,12 @@ export default function RootLayout() {
                   }
                 />
               ),
+            }}
+          />
+          <Stack.Screen
+            name="login"
+            options={{
+              headerShown: false,
             }}
           />
           <Stack.Screen name="+not-found" />

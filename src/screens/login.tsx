@@ -17,7 +17,7 @@ export default function LoginScreen() {
       await queryClient.invalidateQueries({
         queryKey: useGetUserSuspenseQuery.queryKey,
       });
-      router.replace("/");
+      router.dismissAll();
     },
   });
 

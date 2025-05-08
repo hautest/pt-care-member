@@ -8,7 +8,7 @@ import {
   colors,
 } from "pt-care-libs";
 import React from "react";
-import { TouchableOpacity, useColorScheme } from "react-native";
+import { Pressable, TouchableOpacity, useColorScheme } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function TabLayout() {
@@ -30,9 +30,36 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: "",
+          title: "홈",
+          headerTitle: "",
           tabBarIcon: ({ color }) => (
             <MaterialIcons size={28} name="home" color={color} />
+          ),
+          headerShadowVisible: false,
+          ...headerStyle,
+        }}
+      />
+      <Tabs.Screen
+        name="schedule"
+        options={{
+          title: "일정",
+          tabBarIcon: ({ color }) => (
+            <MaterialIcons size={28} name="calendar-month" color={color} />
+          ),
+          headerShadowVisible: false,
+          ...headerStyle,
+        }}
+      />
+      <Tabs.Screen
+        name="my"
+        options={{
+          title: isLoginIn ? "내정보" : "로그인",
+          tabBarIcon: ({ color }) => (
+            <MaterialIcons
+              size={28}
+              name={isLoginIn ? "person" : "login"}
+              color={color}
+            />
           ),
           headerRight: () => {
             return (
@@ -53,30 +80,18 @@ export default function TabLayout() {
               </TouchableOpacity>
             );
           },
-          headerShadowVisible: false,
-          ...headerStyle,
-        }}
-      />
-      <Tabs.Screen
-        name="schedule"
-        options={{
-          title: "일정",
-          tabBarIcon: ({ color }) => (
-            <MaterialIcons size={28} name="calendar-month" color={color} />
+          tabBarButton: (props) => (
+            <Pressable
+              {...props}
+              onPress={() => {
+                if (isLoginIn) {
+                  router.replace("/my");
+                } else {
+                  router.navigate("/login");
+                }
+              }}
+            />
           ),
-          headerShadowVisible: false,
-          ...headerStyle,
-        }}
-      />
-      <Tabs.Screen
-        name="login"
-        options={{
-          title: "로그인",
-          tabBarIcon: ({ color }) => (
-            <MaterialIcons size={28} name="login" color={color} />
-          ),
-          tabBarButton: isLoginIn ? () => null : undefined,
-          headerShown: false,
           headerShadowVisible: false,
           ...headerStyle,
         }}

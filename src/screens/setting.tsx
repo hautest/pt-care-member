@@ -1,23 +1,16 @@
 import { MaterialIcons } from "@expo/vector-icons";
-import { createStyle, RadioButton, useThemeStyle } from "pt-care-libs";
-import { useState } from "react";
-import { Appearance, ColorSchemeName, Text, View } from "react-native";
+import {
+  createStyle,
+  RadioButton,
+  themeMMKV,
+  useThemeStyle,
+} from "pt-care-libs";
+import { Text, View } from "react-native";
 
 export default function SettingScreen() {
   const styles = useThemeStyle(themedStyles);
 
-  const [theme, setTheme] = useState<ColorSchemeName>(() =>
-    Appearance.getColorScheme()
-  );
-
-  const handleThemeChange = (theme: ColorSchemeName) => {
-    setTheme(theme);
-    if (theme === "light" || theme === "dark") {
-      Appearance.setColorScheme(theme);
-    } else {
-      Appearance.setColorScheme(null);
-    }
-  };
+  const [theme, setTheme] = themeMMKV.useMMKV();
 
   return (
     <View style={styles.block}>
@@ -27,7 +20,7 @@ export default function SettingScreen() {
         <RadioButton
           style={styles.radioButton}
           checked={theme === "light"}
-          onCheckChange={() => handleThemeChange("light")}
+          onCheckChange={() => setTheme("light")}
         >
           <View style={styles.radioContent}>
             <Text style={styles.radioLabel}>라이트</Text>
@@ -37,7 +30,7 @@ export default function SettingScreen() {
         <RadioButton
           style={styles.radioButton}
           checked={theme === "dark"}
-          onCheckChange={() => handleThemeChange("dark")}
+          onCheckChange={() => setTheme("dark")}
         >
           <View style={styles.radioContent}>
             <Text style={styles.radioLabel}>다크</Text>
@@ -46,8 +39,8 @@ export default function SettingScreen() {
         </RadioButton>
         <RadioButton
           style={styles.radioButton}
-          checked={theme === null}
-          onCheckChange={() => handleThemeChange(null)}
+          checked={theme === "system"}
+          onCheckChange={() => setTheme("system")}
         >
           <View style={styles.radioContent}>
             <Text style={styles.radioLabel}>시스템</Text>

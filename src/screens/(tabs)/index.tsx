@@ -1,5 +1,5 @@
-import { View, Text, Button, Appearance } from "react-native";
-import { createStyle, useThemeStyle } from "pt-care-libs";
+import { View, Text, Button } from "react-native";
+import { createStyle, themeMMKV, useThemeStyle } from "pt-care-libs";
 import { useGetUserSuspenseQuery } from "@features/user/useGetUserSuspenseQuery";
 import { supabase } from "@shared/supabase/supabase";
 import { useLoginMutation } from "@features/user/useLoginMutation";
@@ -30,14 +30,8 @@ export default function HomeScreen() {
     <>
       <View style={styles.test}>
         <Text style={styles.text}>Home</Text>
-        <Button
-          title="light"
-          onPress={() => Appearance.setColorScheme("light")}
-        />
-        <Button
-          title="dark"
-          onPress={() => Appearance.setColorScheme("dark")}
-        />
+        <Button title="light" onPress={() => themeMMKV.setValue("light")} />
+        <Button title="dark" onPress={() => themeMMKV.setValue("dark")} />
         <Button
           title="로그인"
           onPress={() => {

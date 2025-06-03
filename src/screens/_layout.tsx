@@ -5,9 +5,9 @@ import { useFonts } from "expo-font";
 import { Stack, useRouter } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
-import { colors, Header } from "pt-care-libs";
+import { colors, Header, useIsDarkMode } from "pt-care-libs";
 import { useEffect } from "react";
-import { TouchableOpacity, useColorScheme } from "react-native";
+import { TouchableOpacity } from "react-native";
 import "react-native-reanimated";
 import {
   initialWindowMetrics,
@@ -26,7 +26,7 @@ export default function RootLayout() {
 
   const insets = useSafeAreaInsets();
 
-  const colorScheme = useColorScheme();
+  const isDarkMode = useIsDarkMode();
 
   useEffect(() => {
     if (loaded) {
@@ -41,7 +41,7 @@ export default function RootLayout() {
   return (
     <SafeAreaProvider initialMetrics={initialWindowMetrics}>
       <QueryClientProvider client={queryClient}>
-        <StatusBar style="auto" />
+        <StatusBar style={isDarkMode ? "light" : "dark"} />
         <Stack>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen
@@ -57,9 +57,7 @@ export default function RootLayout() {
                       <MaterialIcons
                         size={28}
                         color={
-                          colorScheme === "dark"
-                            ? colors.basic.white
-                            : colors.basic.black
+                          isDarkMode ? colors.basic.white : colors.basic.black
                         }
                         name="arrow-back"
                       />

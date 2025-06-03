@@ -6,9 +6,10 @@ import {
   useHeaderStyle,
   useThemeStyle,
   colors,
+  useIsDarkMode,
 } from "pt-care-libs";
 import React from "react";
-import { Pressable, TouchableOpacity, useColorScheme } from "react-native";
+import { Pressable, TouchableOpacity } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function TabLayout() {
@@ -19,11 +20,11 @@ export default function TabLayout() {
     insets,
   });
 
-  const colorScheme = useColorScheme();
-
   const router = useRouter();
 
   const isLoginIn = !!data.user;
+
+  const isDarkMode = useIsDarkMode();
 
   return (
     <Tabs>
@@ -70,11 +71,7 @@ export default function TabLayout() {
               >
                 <MaterialIcons
                   size={28}
-                  color={
-                    colorScheme === "dark"
-                      ? colors.basic.white
-                      : colors.basic.black
-                  }
+                  color={isDarkMode ? colors.basic.white : colors.basic.black}
                   name="settings"
                 />
               </TouchableOpacity>

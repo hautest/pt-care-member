@@ -2,6 +2,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { colors } from "@shared/design/colors";
 import { useIsDarkMode } from "@shared/hooks/useIsDarkMode";
 import { queryClient } from "@shared/queryClient/queryClient";
+import { GlobalLoading, useGetGlobalLoading } from "@shared/ui/GlobalLoading";
 import { Header } from "@shared/ui/Header";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { useFonts } from "expo-font";
@@ -24,6 +25,8 @@ export default function RootLayout() {
     SpaceMono: require("../../assets/fonts/SpaceMono-Regular.ttf"),
   });
 
+  const globalLoading = useGetGlobalLoading();
+
   const router = useRouter();
 
   const insets = useSafeAreaInsets();
@@ -44,6 +47,7 @@ export default function RootLayout() {
     <SafeAreaProvider initialMetrics={initialWindowMetrics}>
       <QueryClientProvider client={queryClient}>
         <StatusBar style={isDarkMode ? "light" : "dark"} />
+        {globalLoading && <GlobalLoading />}
         <Stack>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen

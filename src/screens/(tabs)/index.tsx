@@ -6,6 +6,7 @@ import { queryClient } from "@shared/queryClient/queryClient";
 import { useLogoutMutation } from "@features/user/useLogoutMutation";
 import { createStyle, useThemeStyle } from "@shared/ui/createStyle";
 import { themeMMKV } from "@shared/utils";
+import { useSetGlobalLoading } from "@shared/ui/GlobalLoading";
 
 export default function HomeScreen() {
   const styles = useThemeStyle(themedStyles);
@@ -26,6 +27,8 @@ export default function HomeScreen() {
       });
     },
   });
+
+  const setGlobalLoading = useSetGlobalLoading();
 
   return (
     <>
@@ -54,6 +57,15 @@ export default function HomeScreen() {
           }}
         />
         <Button title="로그아웃" onPress={() => logout()} />
+        <Button
+          title="로딩 시작"
+          onPress={() => {
+            setGlobalLoading(true);
+            setTimeout(() => {
+              setGlobalLoading(false);
+            }, 3000);
+          }}
+        />
       </View>
     </>
   );

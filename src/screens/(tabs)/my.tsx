@@ -3,6 +3,7 @@ import { useGetUserSuspenseQuery } from "@features/user/useGetUserSuspenseQuery"
 import { useLogoutMutation } from "@features/user/useLogoutMutation";
 import { queryClient } from "@shared/queryClient/queryClient";
 import { createStyle, useThemeStyle } from "@shared/ui/createStyle";
+import { useSetGlobalLoading } from "@shared/ui/GlobalLoading";
 import { userModeMMKV } from "@shared/utils/userModeMMKV";
 import { useRouter } from "expo-router";
 import { Image, Text, TouchableOpacity, View } from "react-native";
@@ -16,6 +17,8 @@ export default function MyScreen() {
 
   const router = useRouter();
 
+  const setGlobalLoading = useSetGlobalLoading();
+
   const { data } = useGetUserSuspenseQuery();
   const { name, picture, email } = data.user?.user_metadata || {};
 
@@ -24,6 +27,12 @@ export default function MyScreen() {
   const isManager = userMode === "manager";
 
   const { mutate: changeUserMode } = useChangeUserModeMutation({
+    onMutate: () => {
+      setGlobalLoading(true);
+    },
+    onSettled: () => {
+      setGlobalLoading(false);
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: useGetUserSuspenseQuery.queryKey,
@@ -32,6 +41,12 @@ export default function MyScreen() {
   });
 
   const { mutate: logout } = useLogoutMutation({
+    onMutate: () => {
+      setGlobalLoading(true);
+    },
+    onSettled: () => {
+      setGlobalLoading(false);
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: useGetUserSuspenseQuery.queryKey,

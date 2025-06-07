@@ -1,10 +1,11 @@
 import { View, Text, Button } from "react-native";
-import { createStyle, themeMMKV, useThemeStyle } from "pt-care-libs";
 import { useGetUserSuspenseQuery } from "@features/user/useGetUserSuspenseQuery";
 import { supabase } from "@shared/supabase/supabase";
 import { useLoginMutation } from "@features/user/useLoginMutation";
 import { queryClient } from "@shared/queryClient/queryClient";
 import { useLogoutMutation } from "@features/user/useLogoutMutation";
+import { createStyle, useThemeStyle } from "@shared/ui/createStyle";
+import { themeMMKV } from "@shared/utils";
 
 export default function HomeScreen() {
   const styles = useThemeStyle(themedStyles);

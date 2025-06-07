@@ -1,13 +1,10 @@
 import { MaterialIcons } from "@expo/vector-icons";
 import { useGetUserSuspenseQuery } from "@features/user/useGetUserSuspenseQuery";
+import { colors } from "@shared/design/colors";
+import { useIsDarkMode } from "@shared/hooks/useIsDarkMode";
+import { createStyle, useThemeStyle } from "@shared/ui/createStyle";
+import { useHeaderStyle } from "@shared/ui/useHeaderStyle";
 import { Tabs, useRouter } from "expo-router";
-import {
-  createStyle,
-  useHeaderStyle,
-  useThemeStyle,
-  colors,
-  useIsDarkMode,
-} from "pt-care-libs";
 import React from "react";
 import { Pressable, TouchableOpacity } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -97,7 +94,7 @@ export default function TabLayout() {
   );
 }
 
-const themedStyles = createStyle(({ themeColor, typo }) => ({
+const themedStyles = createStyle(({ themeColor }) => ({
   tabBarActiveTintColor: { color: themeColor.brand.primary },
   tabBarInactiveTintColor: { color: themeColor.action.disabled },
   tabBarStyle: {

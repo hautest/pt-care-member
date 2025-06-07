@@ -1,4 +1,4 @@
-import { createStyle, useThemeStyle } from "pt-care-libs";
+import { createStyle, useThemeStyle } from "@shared/ui/createStyle";
 import { View, Text } from "react-native";
 
 export default function TabTwoScreen() {

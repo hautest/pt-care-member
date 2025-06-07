@@ -1,10 +1,7 @@
 import { MaterialIcons } from "@expo/vector-icons";
-import {
-  createStyle,
-  RadioButton,
-  themeMMKV,
-  useThemeStyle,
-} from "pt-care-libs";
+import { createStyle, useThemeStyle } from "@shared/ui/createStyle";
+import { RadioButton } from "@shared/ui/RadioButton";
+import { themeMMKV } from "@shared/utils";
 import { Text, View } from "react-native";
 
 export default function SettingScreen() {

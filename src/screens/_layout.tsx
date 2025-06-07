@@ -1,11 +1,13 @@
 import { MaterialIcons } from "@expo/vector-icons";
+import { colors } from "@shared/design/colors";
+import { useIsDarkMode } from "@shared/hooks/useIsDarkMode";
 import { queryClient } from "@shared/queryClient/queryClient";
+import { Header } from "@shared/ui/Header";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { useFonts } from "expo-font";
 import { Stack, useRouter } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
-import { colors, Header, useIsDarkMode } from "pt-care-libs";
 import { useEffect } from "react";
 import { TouchableOpacity } from "react-native";
 import "react-native-reanimated";

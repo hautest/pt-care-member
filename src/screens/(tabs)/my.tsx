@@ -1,8 +1,8 @@
 import { useGetUserSuspenseQuery } from "@features/user/useGetUserSuspenseQuery";
 import { useLogoutMutation } from "@features/user/useLogoutMutation";
 import { queryClient } from "@shared/queryClient/queryClient";
+import { createStyle, useThemeStyle } from "@shared/ui/createStyle";
 import { useRouter } from "expo-router";
-import { createStyle, useThemeStyle } from "pt-care-libs";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 
 function httpToHttps(url: string) {

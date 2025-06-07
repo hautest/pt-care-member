@@ -1,6 +1,5 @@
 import z from "zod";
 import { MMKV, useMMKVString } from "react-native-mmkv";
-import { useEffect, useLayoutEffect } from "react";
 
 function isStringIncludeQuotesOrDoubleQuotes(value: string) {
   return (
@@ -50,7 +49,7 @@ export function createMMKVSchema<T extends z.ZodType>({
   };
 
   //defaultValue 설정 시 초기값 설정
-  if (getValue() === null) {
+  if (getValue() === null && !!defaultValue) {
     setValue(valueType.parse(defaultValue));
   }
 

@@ -8,7 +8,8 @@
     "ios": "react-native run-ios",
     "web": "expo start --web",
     "test": "jest --watchAll",
-    "lint": "expo lint"
+    "lint": "expo lint",
+    "generate:type": "npx supabase gen types typescript --project-id pcbnrknkcwyxsklbymcr --schema public > src/shared/supabase/interface.ts"
   },
   "jest": {
     "preset": "jest-expo"
@@ -58,6 +59,7 @@
     "jest-expo": "~52.0.6",
     "metro-react-native-babel-preset": "^0.77.0",
     "react-test-renderer": "18.3.1",
+    "supabase": "^2.24.3",
     "typescript": "^5.3.3"
   },
   "private": true

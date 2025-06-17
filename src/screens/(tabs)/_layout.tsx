@@ -49,6 +49,17 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="members"
+        options={{
+          title: "회원 관리",
+          tabBarIcon: ({ color }) => (
+            <MaterialIcons size={28} name="assignment-ind" color={color} />
+          ),
+          headerShadowVisible: false,
+          ...headerStyle,
+        }}
+      />
+      <Tabs.Screen
         name="my"
         options={{
           title: isLoginIn ? "내정보" : "로그인",

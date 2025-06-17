@@ -7,11 +7,15 @@ import { useLogoutMutation } from "@features/user/useLogoutMutation";
 import { createStyle, useThemeStyle } from "@shared/ui/createStyle";
 import { themeMMKV } from "@shared/utils";
 import { useSetGlobalLoading } from "@shared/ui/GlobalLoading";
+import { useModal } from "@shared/ui/Modal";
 
 export default function HomeScreen() {
   const styles = useThemeStyle(themedStyles);
 
   const { data } = useGetUserSuspenseQuery();
+
+  const { showModal, hideModal } = useModal();
+
   const { mutate } = useLoginMutation({
     onSuccess: () => {
       queryClient.invalidateQueries({
@@ -64,6 +68,23 @@ export default function HomeScreen() {
             setTimeout(() => {
               setGlobalLoading(false);
             }, 3000);
+          }}
+        />
+        <Button
+          title="모달 테스트"
+          onPress={() => {
+            showModal({
+              title: "모달 테스트",
+              description: "모달 테스트 내용",
+              confirmText: "확인",
+              // cancelText: "취소",
+              onConfirm: () => {
+                hideModal();
+              },
+              // onCancel: () => {
+              //   hideModal();
+              // },
+            });
           }}
         />
       </View>

@@ -17,6 +17,7 @@ export const useHeaderStyle = ({ insets }: UseHeaderStyleProps) => {
     tabBarInactiveTintColor: styles.tabBarInactiveTintColor.color,
     tabBarStyle: styles.tabBarStyle,
     headerTitleStyle: styles.title,
+    headerTitleAlign: "center" as const,
   };
 };
 

@@ -1,4 +1,3 @@
-import { MaterialIcons } from "@expo/vector-icons";
 import { useGetUserSuspenseQuery } from "@features/user/useGetUserSuspenseQuery";
 import { useLoginMutation } from "@features/user/useLoginMutation";
 import { queryClient } from "@shared/queryClient/queryClient";
@@ -37,37 +36,13 @@ export default function LoginScreen() {
             전문 트레이너와 함께 건강한 라이프스타일을 만들어보세요
           </Text>
         </View>
-        <View>
-          <Text style={styles.userMode}>어떤 서비스를 이용하시나요?</Text>
-          <TouchableOpacity
-            activeOpacity={0.3}
-            style={[styles.button, styles.memberButton]}
-            onPress={() => login({ userMode: "member" })}
-          >
-            <MaterialIcons name="person" size={24} style={styles.icon} />
-            <Text style={[styles.buttonText, styles.memberButtonText]}>
-              PT 회원으로 시작하기
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            activeOpacity={0.3}
-            style={[
-              styles.button,
-              styles.managerButton,
-              { marginBottom: insets.bottom },
-            ]}
-            onPress={() => login({ userMode: "manager" })}
-          >
-            <MaterialIcons
-              name="fitness-center"
-              size={24}
-              style={styles.icon}
-            />
-            <Text style={[styles.buttonText, styles.managerButtonText]}>
-              PT 트레이너로 시작하기
-            </Text>
-          </TouchableOpacity>
-        </View>
+        <TouchableOpacity
+          activeOpacity={0.3}
+          style={[styles.button, { marginBottom: insets.bottom + 16 }]}
+          onPress={() => login()}
+        >
+          <Text style={styles.buttonText}>카카오로 로그인</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -111,26 +86,12 @@ const themedStyles = createStyle(({ themeColor, typo }) => ({
     alignItems: "center",
     justifyContent: "center",
     gap: 16,
-  },
-  memberButton: {
-    backgroundColor: themeColor.action.primary,
-    marginBottom: 16,
-  },
-  managerButton: {
-    borderWidth: 1,
-    borderColor: themeColor.action.primary,
-    backgroundColor: themeColor.background.primary,
+    backgroundColor: "#FEE500",
   },
   buttonText: {
     fontSize: typo.sizes.bodyLarge,
     fontWeight: typo.weights.bold,
     textAlign: "center",
-  },
-  memberButtonText: {
-    color: themeColor.text.primary,
-  },
-  managerButtonText: {
-    color: themeColor.text.primary,
   },
   icon: {
     color: themeColor.text.primary,

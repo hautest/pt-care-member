@@ -1,6 +1,7 @@
 import { ActivityIndicator, View } from "react-native";
 import { createStyle, useThemeStyle } from "./createStyle";
 import { atom, useAtomValue, useSetAtom } from "jotai";
+import { useCallback, useMemo } from "react";
 
 export function GlobalLoading() {
   const styles = useThemeStyle(themedStyles);
@@ -32,5 +33,20 @@ const themedStyles = createStyle(({ themeColor }) => ({
 
 const globalLoading = atom(false);
 
-export const useSetGlobalLoading = () => useSetAtom(globalLoading);
+export const useGlobalLoading = () => {
+  const setGlobalLoading = useSetAtom(globalLoading);
+
+  const startLoading = useCallback(() => {
+    setGlobalLoading(true);
+  }, [setGlobalLoading]);
+
+  const stopLoading = useCallback(() => {
+    setGlobalLoading(false);
+  }, [setGlobalLoading]);
+
+  return useMemo(
+    () => ({ startLoading, stopLoading }),
+    [startLoading, stopLoading]
+  );
+};
 export const useGetGlobalLoading = () => useAtomValue(globalLoading);

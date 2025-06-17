@@ -1,10 +1,9 @@
-import { useChangeUserModeMutation } from "@features/user/useChangeUserModeMutation";
 import { useGetUserSuspenseQuery } from "@features/user/useGetUserSuspenseQuery";
 import { useLogoutMutation } from "@features/user/useLogoutMutation";
 import { queryClient } from "@shared/queryClient/queryClient";
 import { createStyle, useThemeStyle } from "@shared/ui/createStyle";
-import { useSetGlobalLoading } from "@shared/ui/GlobalLoading";
-import { userModeMMKV } from "@shared/utils/userModeMMKV";
+import { useGlobalLoading } from "@shared/ui/GlobalLoading";
+import { useModal } from "@shared/ui/Modal";
 import { useRouter } from "expo-router";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 
@@ -17,35 +16,17 @@ export default function MyScreen() {
 
   const router = useRouter();
 
-  const setGlobalLoading = useSetGlobalLoading();
+  const { startLoading, stopLoading } = useGlobalLoading();
 
   const { data } = useGetUserSuspenseQuery();
   const { name, picture, email } = data.user?.user_metadata || {};
 
-  const [userMode] = userModeMMKV.useMMKV();
-
-  const isManager = userMode === "manager";
-
-  const { mutate: changeUserMode } = useChangeUserModeMutation({
-    onMutate: () => {
-      setGlobalLoading(true);
-    },
-    onSettled: () => {
-      setGlobalLoading(false);
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: useGetUserSuspenseQuery.queryKey,
-      });
-    },
-  });
-
   const { mutate: logout } = useLogoutMutation({
     onMutate: () => {
-      setGlobalLoading(true);
+      startLoading();
     },
     onSettled: () => {
-      setGlobalLoading(false);
+      stopLoading();
     },
     onSuccess: () => {
       queryClient.invalidateQueries({
@@ -55,6 +36,24 @@ export default function MyScreen() {
       router.navigate("/login");
     },
   });
+
+  const { showModal, hideModal } = useModal();
+
+  const handleLogout = () => {
+    showModal({
+      title: "로그아웃",
+      description: "정말 로그아웃하시겠습니까?",
+      confirmText: "로그아웃",
+      cancelText: "취소",
+      onCancel: () => {
+        hideModal();
+      },
+      onConfirm: () => {
+        hideModal();
+        logout();
+      },
+    });
+  };
 
   return (
     <View style={styles.block}>
@@ -73,28 +72,10 @@ export default function MyScreen() {
             <Text style={styles.email}>{email}</Text>
           </View>
         </View>
-        <Text style={styles.userMode}>
-          현재{" "}
-          <Text style={styles.userModeStrong}>
-            {isManager ? "트레이너" : "회원"}
-          </Text>
-          으로 로그인중이에요.
-        </Text>
       </View>
       <View style={styles.bottomButtonContainer}>
         <TouchableOpacity
-          onPress={() =>
-            changeUserMode({ userMode: isManager ? "member" : "manager" })
-          }
-          activeOpacity={0.3}
-          style={styles.bottomButton}
-        >
-          <Text style={styles.bottomButtonText}>
-            {isManager ? "회원으로" : "트레이너로"} 전환하기
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => logout()}
+          onPress={handleLogout}
           activeOpacity={0.3}
           style={styles.bottomButton}
         >
@@ -141,21 +122,6 @@ const themedStyles = createStyle(({ themeColor, typo }) => ({
     fontSize: typo.sizes.bodyMedium,
     fontWeight: typo.weights.regular,
     color: themeColor.text.tertiary,
-  },
-  userMode: {
-    fontSize: typo.sizes.bodyMedium,
-    fontWeight: typo.weights.regular,
-    color: themeColor.text.tertiary,
-    borderWidth: 1,
-    borderColor: themeColor.border.light,
-    padding: 16,
-    borderRadius: 8,
-    marginBottom: 16,
-    textAlign: "center",
-  },
-  userModeStrong: {
-    fontWeight: typo.weights.bold,
-    color: themeColor.text.primary,
   },
   bottomButtonContainer: {
     gap: 8,

@@ -3,7 +3,14 @@ apply plugin: "org.jetbrains.kotlin.android"
 apply plugin: "com.facebook.react"
 
 def projectRoot = rootDir.getAbsoluteFile().getParentFile().getAbsolutePath()
-def kakaoKey = project.hasProperty("KAKAO_NATIVE_APP_KEY") ? project.KAKAO_NATIVE_APP_KEY : ""
+def localPropsFile = file("../local.properties")
+def localProps     = new Properties()
+if (localPropsFile.exists()) {
+    localPropsFile.withInputStream { stream ->
+        localProps.load(stream)
+    }
+}
+def kakaoKey = localProps.getProperty("KAKAO_NATIVE_APP_KEY", "")
 
 /**
  * This is the configuration block to customize your React Native Android app.

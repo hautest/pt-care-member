@@ -1,9 +1,9 @@
 import { View, Text, Button } from "react-native";
-import { useGetUserSuspenseQuery } from "@features/user/useGetUserSuspenseQuery";
+import { useGetUserSuspenseQuery } from "@features/user/queries/useGetUserSuspenseQuery";
 import { supabase } from "@shared/supabase/supabase";
-import { useLoginMutation } from "@features/user/useLoginMutation";
+import { useLoginMutation } from "@features/user/queries/useLoginMutation";
 import { queryClient } from "@shared/queryClient/queryClient";
-import { useLogoutMutation } from "@features/user/useLogoutMutation";
+import { useLogoutMutation } from "@features/user/queries/useLogoutMutation";
 import { createStyle, useThemeStyle } from "@shared/ui/createStyle";
 import { themeMMKV } from "@shared/utils";
 import { useModal } from "@shared/ui/Modal";

@@ -1,5 +1,5 @@
-import { useGetUserSuspenseQuery } from "@features/user/useGetUserSuspenseQuery";
-import { useLogoutMutation } from "@features/user/useLogoutMutation";
+import { useGetUserSuspenseQuery } from "@features/user/queries/useGetUserSuspenseQuery";
+import { useLogoutMutation } from "@features/user/queries/useLogoutMutation";
 import { queryClient } from "@shared/queryClient/queryClient";
 import { createStyle, useThemeStyle } from "@shared/ui/createStyle";
 import { useGlobalLoading } from "@shared/ui/GlobalLoading";

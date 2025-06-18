@@ -1,5 +1,5 @@
-import { useGetUserSuspenseQuery } from "@features/user/useGetUserSuspenseQuery";
-import { useLoginMutation } from "@features/user/useLoginMutation";
+import { useGetUserSuspenseQuery } from "@features/user/queries/useGetUserSuspenseQuery";
+import { useLoginMutation } from "@features/user/queries/useLoginMutation";
 import { queryClient } from "@shared/queryClient/queryClient";
 import { createStyle, useThemeStyle } from "@shared/ui/createStyle";
 import { useRouter } from "expo-router";

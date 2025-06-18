@@ -1,5 +1,5 @@
 import { MaterialIcons } from "@expo/vector-icons";
-import { useGetUserSuspenseQuery } from "@features/user/useGetUserSuspenseQuery";
+import { useGetUserSuspenseQuery } from "@features/user/queries/useGetUserSuspenseQuery";
 import { colors } from "@shared/design/colors";
 import { useIsDarkMode } from "@shared/hooks/useIsDarkMode";
 import { createStyle, useThemeStyle } from "@shared/ui/createStyle";
@@ -55,6 +55,22 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => (
             <MaterialIcons size={28} name="assignment-ind" color={color} />
           ),
+          headerRight: () => {
+            return (
+              <TouchableOpacity
+                style={styles.headerRight}
+                onPress={() => router.navigate("/members/add")}
+                activeOpacity={0.3}
+                accessibilityLabel="회원 추가하기"
+              >
+                <MaterialIcons
+                  size={28}
+                  color={isDarkMode ? colors.basic.white : colors.basic.black}
+                  name="add"
+                />
+              </TouchableOpacity>
+            );
+          },
           headerShadowVisible: false,
           ...headerStyle,
         }}

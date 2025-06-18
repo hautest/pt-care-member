@@ -14,6 +14,12 @@ export const useLoginMutation = (
         token: idToken,
       });
 
+      if (data.user) {
+        await supabase.from("MANAGER").insert({
+          id: data.user.id,
+        });
+      }
+
       if (error) throw error;
 
       return data;
